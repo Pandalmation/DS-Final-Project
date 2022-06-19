@@ -329,7 +329,7 @@ void BinarySearchTree::changeCritValue(string p, int newnumber) {
     }
     //change the crit value associated with the node
     curr->data.setCritValue(newnumber);
-    cout << "Number changed successfully. " << endl;
+    cout << "Crit value changed successfully. " << endl;
 }//end changePhonenumber
 /////////////////////////////////////new add into book class//////////////
 //void fillTree( BinarySearchTree b)
@@ -397,9 +397,9 @@ int main()
             cin >> key;
             b.search(key);
             break;
-        case 1: cout << " Enter name to be inserted: ";
+        case 1: cout << " Enter name to be inserted: (ex: Sands, Goblet, Flower, Feather) ";
             cin >> name;
-            cout << " Enter Artifact Type (ex: sands, hat, goblet, flower, feather): ";
+            cout << " Enter Type: ";
             cin >> type;
             cout << " Enter Artifact Rarity: ";
             cin >> rarity;
