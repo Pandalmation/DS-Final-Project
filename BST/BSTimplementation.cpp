@@ -324,7 +324,7 @@ void BinarySearchTree::changeCritValue(string p, int newnumber) {
     }
     if (!found)
     {
-        cout << " Person not found. " << endl;
+        cout << " Artifact not found. " << endl;
         return;
     }
     //change the crit value associated with the node
