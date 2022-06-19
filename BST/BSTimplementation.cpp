@@ -399,7 +399,7 @@ int main()
             break;
         case 1: cout << " Enter name to be inserted: ";
             cin >> name;
-            cout << " Enter Type: ";
+            cout << " Enter Artifact Type (ex: sands, hat, goblet, flower, feather): ";
             cin >> type;
             cout << " Enter Artifact Rarity: ";
             cin >> rarity;
