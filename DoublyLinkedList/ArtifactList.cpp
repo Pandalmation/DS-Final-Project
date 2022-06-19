@@ -1,14 +1,13 @@
 #include<iostream>
-
 using namespace std;
-
+//create artifact class that stores name, type, rarity, critrate, critdamage and crit value
 class Artifact {
   public:
     string artifactname, type, rarity;
     double cv, critrate, critdamage;
     int level;
-    Artifact * next;
-    Artifact * previous;
+    Artifact * next; //pointer to a node and indicates the next item in the list
+    Artifact * previous; //pointer to a node and indicates the prev item in the list
   
   Artifact() {
     artifactname = "";
@@ -18,7 +17,7 @@ class Artifact {
     cv = 0;
     level = 0;
     rarity = "";
-    next = NULL;
+    next = NULL; 
     previous = NULL;
   }
   Artifact(string an, double cr, double cd, int lvl, string rty, string typ) {
@@ -44,7 +43,7 @@ class ArtifactLinkedList {
     head = n;
   }
 
-  // 1. CHeck if Artifact exists using artifact name value
+  // 1. CHeck if Artifact exists by the artifact name 
 
   Artifact * ArtifactExists(string an) {
     Artifact * temp = NULL;
