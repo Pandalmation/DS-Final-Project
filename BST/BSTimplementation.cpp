@@ -298,7 +298,7 @@ void BinarySearchTree::search(string key)
         return;
     }
 }
-void BinarySearchTree::changeCritValue(string p, int newnumber) {
+void BinarySearchTree::changeCritValue(string p, int newCritValue) {
     bool found = false;
     if (isEmpty())
     {
@@ -328,7 +328,7 @@ void BinarySearchTree::changeCritValue(string p, int newnumber) {
         return;
     }
     //change the crit value associated with the node
-    curr->data.setCritValue(newnumber);
+    curr->data.setCritValue(newCritValue);
     cout << "Crit value changed successfully. " << endl;
 }//end changePhonenumber
 /////////////////////////////////////new add into book class//////////////
