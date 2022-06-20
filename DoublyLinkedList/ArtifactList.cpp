@@ -9,7 +9,7 @@ class Artifact {
     Artifact * next; //pointer to a node and indicates the next item in the list
     Artifact * previous; //pointer to a node and indicates the prev item in the list
   
-  Artifact() {
+  Artifact() { //create default constructor
     artifactname = "";
     type = "";
     critrate = 0;
@@ -34,44 +34,45 @@ class Artifact {
 class ArtifactLinkedList {
 
   public:
+  //pointer of class artifact where head is a pointer of Artifact node which points to the first node.
     Artifact * head;
 
-  ArtifactLinkedList() {
+  ArtifactLinkedList() { //default constructor. When a doubly linked list object is created for the first time, head pointer inside the object will be pointing to null.
     head = NULL;
   }
-  ArtifactLinkedList(Artifact * n) {
+  ArtifactLinkedList(Artifact * n) { //created parameterized constructor, if create by passing a node object then it will point to that node object.
     head = n;
   }
 
-  // 1. CHeck if Artifact exists by the artifact name 
+  // 1. Create method to Check if Artifact exists by the artifact name 
 
-  Artifact * ArtifactExists(string an) {
-    Artifact * temp = NULL;
-    Artifact * ptr = head;
+  Artifact * ArtifactExists(string an) { //if artifact exists in the doubly linked list, it will return address to that object
+    Artifact * temp = NULL; //temporary pointer of class artifact and store null initially
+    Artifact * ptr = head; //head pointer is going to be inside the object in doubly linked last, it will store the temporary pointer
 
-    while (ptr != NULL) {
-      if (ptr -> artifactname == an) {
+    while (ptr != NULL) { //if it has address
+      if (ptr -> artifactname == an) { //pointer accessing artifact's name and see if it matches 
         temp = ptr;
       }
-      ptr = ptr -> next;
+      ptr = ptr -> next; //pointing to the next object/artifact which will be storing the address of the next object until the list ends where the address is null
     }
 
-    return temp;
+    return temp; //return address
   }
 
   // 2. Append a Artifact to the list
 
-  void appendArtifact(Artifact * n) {
-    if (ArtifactExists(n -> artifactname) != NULL) {
-      cout << "Artifact Already exists with artifactname value : " << n -> artifactname << ". Append another Artifact with different artifactname value" << endl;
+  void appendArtifact(Artifact * n) { //passing the address of the node/artifact
+    if (ArtifactExists(n -> artifactname) != NULL) { //check if artifact exists alrdy with the same name value and head is pointing to an object
+      cout << "Artifact Already exists with artifactname value : " << n -> artifactname << ". Append another Artifact with different artifactname value" << endl; //accessing the artifact name of the object using pointer`
     } else {
-      if (head == NULL) {
-        head = n;
+      if (head == NULL) { 
+        head = n; //store in head pointer
         cout << "Artifact Appended as Head Artifact" << endl;
       } else {
         Artifact * ptr = head;
-        while (ptr -> next != NULL) {
-          ptr = ptr -> next;
+        while (ptr -> next != NULL) { //if head is pointing into artiface node n1
+          ptr = ptr -> next; //move n1 to n2
         }
         ptr -> next = n;
         n -> previous = ptr;
