@@ -1,6 +1,9 @@
 #include<iostream>
+#include<chrono>
 using namespace std;
 //create artifact class that stores name, type, rarity, critrate, critdamage and crit value
+using namespace std::chrono;
+
 class Artifact {
   public:
     string artifactname, type, rarity;
@@ -17,7 +20,7 @@ class Artifact {
     cv = 0;
     level = 0;
     rarity = "";
-    next = NULL; 
+    next = NULL;
     previous = NULL;
   }
   Artifact(string an, double cr, double cd, int lvl, string rty, string typ) {
@@ -34,8 +37,7 @@ class Artifact {
 class ArtifactLinkedList {
 
   public:
-  //pointer of class artifact where head is a pointer of Artifact node which points to the first node.
-    Artifact * head;
+    Artifact * head; //pointer of class artifact where head is a pointer of Artifact node which points to the first node.
 
   ArtifactLinkedList() { //default constructor. When a doubly linked list object is created for the first time, head pointer inside the object will be pointing to null.
     head = NULL;
@@ -44,17 +46,17 @@ class ArtifactLinkedList {
     head = n;
   }
 
-  // 1. Create method to Check if Artifact exists by the artifact name 
+  // 1. Check if Artifact exists using artifact name
 
   Artifact * ArtifactExists(string an) { //if artifact exists in the doubly linked list, it will return address to that object
-    Artifact * temp = NULL; //temporary pointer of class artifact and store null initially
-    Artifact * ptr = head; //head pointer is going to be inside the object in doubly linked last, it will store the temporary pointer
+    Artifact * temp = NULL;//temporary pointer of class artifact and store null initially
+    Artifact * ptr = head;//head pointer is going to be inside the object in doubly linked last, it will store the temporary pointer
 
     while (ptr != NULL) { //if it has address
       if (ptr -> artifactname == an) { //pointer accessing artifact's name and see if it matches 
         temp = ptr;
       }
-      ptr = ptr -> next; //pointing to the next object/artifact which will be storing the address of the next object until the list ends where the address is null
+      ptr = ptr -> next;  //pointing to the next object/artifact which will be storing the address of the next object until the list ends where the address is null
     }
 
     return temp; //return address
@@ -64,9 +66,9 @@ class ArtifactLinkedList {
 
   void appendArtifact(Artifact * n) { //passing the address of the node/artifact
     if (ArtifactExists(n -> artifactname) != NULL) { //check if artifact exists alrdy with the same name value and head is pointing to an object
-      cout << "Artifact Already exists with artifactname value : " << n -> artifactname << ". Append another Artifact with different artifactname value" << endl; //accessing the artifact name of the object using pointer`
+      cout << "Artifact Already exists with the artifact name: " << n -> artifactname << ". Append another Artifact with a different artifact name please." << endl;//accessing the artifact name of the object using pointer
     } else {
-      if (head == NULL) { 
+      if (head == NULL) {
         head = n; //store in head pointer
         cout << "Artifact Appended as Head Artifact" << endl;
       } else {
@@ -84,7 +86,7 @@ class ArtifactLinkedList {
   // 3. Prepend Artifact - Attach a Artifact at the start
   void prependArtifact(Artifact * n) {
     if (ArtifactExists(n -> artifactname) != NULL) {
-      cout << "Artifact Already exists with artifactname value : " << n -> artifactname << ". Append another Artifact with different artifactname value" << endl;
+      cout << "Artifact Already exists with the artifact name: " << n -> artifactname << ". Append another Artifact with a different artifact name please." << endl;
     } else {
       if (head == NULL) {
         head = n;
@@ -105,7 +107,7 @@ class ArtifactLinkedList {
       cout << "No Artifact exists with the artifact name " << an << endl;
     } else {
       if (ArtifactExists(n -> artifactname) != NULL) {
-        cout << "Artifact Already exists with artifactname value : " << n -> artifactname << ". Append another Artifact with different artifactname value" << endl;
+        cout << "Artifact Already exists with the artifact name : " << n -> artifactname << ". Append another Artifact with a different artifact name please :)" << endl;
       } else {
         Artifact * nextArtifact = ptr -> next;
         // inserting at the end
@@ -129,44 +131,44 @@ class ArtifactLinkedList {
       }
     }
   }
-
-  //void searchArtifactByartifactname(string an) {
-    //Artifact * ptr = ArtifactExists(an);
-    //if (ptr == NULL) {
-      //cout << "No Artifact exists with that artifact name! " << an << endl;
-    //} else {
-      //if (ArtifactExists(an -> artifactname) != NULL) {
-        //cout << "\nArtifact name: " << temp -> artifactname << "\nType: " << temp -> type << "\nCrit value: " << temp -> cv << "\nLevel: " << temp -> level << "\nRarity: " << temp -> rarity << "";
-      //}
-    //}
-  //}
+  // Search artifact by the artifact name
+  void searchArtifactByartifactname(string an) {
+    Artifact * ptr = ArtifactExists(an);
+    if (ptr == NULL) {
+      cout << "No Artifact exists with the artifact name: " << an << endl;
+    } else {
+      if (ptr -> artifactname == an) {
+        cout << "\nThe Artifact " << an << " is found in the List!" << endl;
+        cout << "\n<><><><><><><><><><><><><><><><>";
+        cout << "\nArtifact name: " << ptr -> artifactname << "\nType: " << ptr -> type << "\nCrit value: " << ptr -> cv << "\nLevel: " << ptr -> level << "\nRarity: " << ptr -> rarity << "";
+        cout << "\n<><><><><><><><><><><><><><><><>" << endl;
+      }
+    }
+  }
   
   
   // 5. Delete Artifact by unique artifactname. Basically De-Link not delete
   void deleteArtifactByartifactname(string an) {
     Artifact * ptr = ArtifactExists(an);
     if (ptr == NULL) {
-      cout << "No Artifact exists with artifact name" << an << endl;
+      cout << "No Artifact exists with artifact name: " << an << endl;
     } else {
       if (head -> artifactname == an) {
         head = head -> next;
-        cout << "Artifact UNLINKED with artifactnames value : " << an << endl;
+        cout << "Artifact " << an << " has been successfully deleted." << endl;
       } else {
         Artifact * nextArtifact = ptr -> next;
         Artifact * prevArtifact = ptr -> previous;
         // deleting at the end
         if (nextArtifact == NULL) {
-
           prevArtifact -> next = NULL;
           cout << "Artifact Deleted at the END" << endl;
         }
-
         //deleting in between
         else {
           prevArtifact -> next = nextArtifact;
           nextArtifact -> previous = prevArtifact;
           cout << "Artifact Deleted in Between" << endl;
-
         }
       }
     }
@@ -203,45 +205,48 @@ class ArtifactLinkedList {
     }
   }
 
-  void rateArtifact(string an1, double cv1) {
-    Artifact * ptr = ArtifactExists(an1);
-      if (cv1 >= 0 && cv1 <= 9) {
-        cout << "Dont Upgrade";
-        }
-        else if (cv1 >= 10 && cv1 <= 19) {
-          cout << "Average";
-        }
-        else if (cv1 >= 20 && cv1 <= 29) {
-          cout << "Decent";
-        }
-        else if (cv1 >= 30 && cv1 <= 39) {
-          cout << "Very Good";
-        }
-        else if (cv1 >= 40 && cv1 <= 49) {
-          cout << "Jewel";
-        }
-        else {
-          cout << "Magic Unicorn";
-        }
-        } 
-    };   
+  void rateArtifact(string an) {
+    Artifact * ptr = ArtifactExists(an);
+    double cv1 = ptr->cv;
+    if (cv1 >= 0 && cv1 <= 9) {
+      cout << "Our Rating:\nDont Upgrade";
+    }
+    else if (cv1 >= 10 && cv1 <= 19) {
+      cout << "Our Rating:\nAverage";
+    }
+    else if (cv1 >= 20 && cv1 <= 29) {
+      cout << "Our Rating:\nDecent";
+    }
+    else if (cv1 >= 30 && cv1 <= 39) {
+      cout << "Our Rating:\nVery Good";
+    }
+    else if (cv1 >= 40 && cv1 <= 49) {
+      cout << "Our rating:\nJewel";
+    }
+    else {
+      cout << "Our rating: \nMagic Unicorn";
+    } 
+  } 
+};   
 
 int main() {
-
   ArtifactLinkedList obj;
   int option;
   string artifactname1, an1, rarity1, type1;
   int  level1;
   double cv1, critrate1, critdamage1;
   do {
-    cout << "\nWhat operation do you want to perform? Select Option number. Enter 0 to exit." << endl;
-    cout << "1. append Artifact" << endl;
-    cout << "2. prepend Artifact" << endl;
-    cout << "3. insert Artifact After" << endl;
-    cout << "4. delete Artifact By Name" << endl;
-    cout << "5. update Artifact By Name" << endl;
-    cout << "6. print Artifact List" << endl;
-    cout << "7. Clear Screen" << endl;
+    cout << "\nWelcome to Kokopium's Genshin Impact Artifact Rater!" << endl;                
+    cout << "\nWhich operation would you like to perform? Enter 1-9. Enter 0 to exit." << endl;
+    cout << "1. Append Artifact" << endl;
+    cout << "2. Prepend Artifact" << endl;
+    cout << "3. Insert Artifact After" << endl;
+    cout << "4. Delete Artifact" << endl;
+    cout << "5. Search for Artifact" << endl;
+    cout << "6. Update Artifact" << endl;
+    cout << "7. Print All Artifacts" << endl;
+    cout << "8. Rate Artifact" << endl;
+    cout << "9. Clear Screen" << endl;
 
     cin >> option;
     Artifact * n1 = new Artifact();
@@ -250,7 +255,7 @@ int main() {
     case 0:
       break;
     case 1:
-      cout << "This is the Append Artifact Operation" << endl;
+      cout << "This is the APPEND Artifact Operation\nEnter the data of the Artifact to be added into the list" << endl;
       cout << "Enter a new artifact name: " << endl;
       cin >> artifactname1;
       cout << "what is the artifact type? (ex: sands, hat, goblet, flower, feather)" << endl;
@@ -272,8 +277,8 @@ int main() {
       break;
 
     case 2:
-      cout << "Prepend Artifact Operation \nEnter the data of the Artifact that needs to be Prepended" << endl;
-      cout << "Enter the new artifact name: " << endl;
+      cout << "PREPEND Artifact Operation \nEnter the data of the Artifact to be added into the top of the list" << endl;
+      cout << "Enter a new artifact name: " << endl;
       cin >> artifactname1;
       cout << "what is the artifact type? (ex: sands, hat, goblet, flower, feather)" << endl;
       cin >> type1;
@@ -295,7 +300,7 @@ int main() {
       break;
 
     case 3:
-      cout << "Insert Artifact After Operation \nEnter artifact name of existing Artifact after which you want to Insert this New Artifact: " << endl;
+      cout << "INSERT Artifact AFTER Operation \nEnter the name of an existing Artifact which you want to Insert this New Artifact after: " << endl;
       cin >> an1;
       cout << "Enter the name of the new artifact you want to insert: " << endl;
       cin >> artifactname1;
@@ -319,23 +324,21 @@ int main() {
       break;
 
     case 4:
-
-      cout << "Delete Artifact By artifact name Operation - \nEnter the name of an Artifact to be deleted: " << endl;
+      cout << "DELETE Artifact By artifact name Operation\nEnter the name of the Artifact to be deleted: " << endl;
       cin >> an1;
       obj.deleteArtifactByartifactname(an1);
       break;
 
-    //case 5:
-      //cout << "SEARCH Artifact By artifact name Operation" << endl;
-      //cout << "Enter the artifact name that you want to search for: " << endl;
-      //cin >> an1;
-      //obj.searchArtifactByartifactname(an1);
-
-      //break;
-
     case 5:
+      cout << "SEARCH Artifact By artifact name Operation" << endl;
+      cout << "Enter the artifact's name that you want to search for: " << endl;
+      cin >> an1;
+      obj.searchArtifactByartifactname(an1);
+      break;
+      
+    case 6:
       cout << "Update Artifact By artifact name Operation" << endl;
-      cout << "Enter the artifact name that you want to update the stats for: " << endl;
+      cout << "Enter the artifact's name that you want to update the stats for: " << endl;
       cin >> artifactname1;
       cout << "Enter the updated crit rate: " << endl;
       cin >> critrate1;
@@ -347,19 +350,19 @@ int main() {
       obj.updateArtifactByartifactname(artifactname1, critrate1, critdamage1, level1);
       break;
 
-    case 6:
+    case 7:
       obj.printList();
       break;
 
-    //case 7:
-      //cout << "Rate Artifact By artifact name Operation" << endl;
-      //cout << "Enter the artifact name that you want us to rate: " << endl;
-     // cin >> an1;
-      //n1 -> cv1 = (critrate1*2) + critdamage1;
-      //obj.rateArtifact(an1, cv1, n1);
-      //break;
+    case 8:
+      cout << "Rate Artifact By artifact name Operation" << endl;
+      cout << "Enter the artifact's name that you want us to rate: " << endl;
+      cin >> an1;
+      //n1 -> cv = (critrate1*2) + critdamage1;
+      obj.rateArtifact(an1);
+      break;
 
-    case 7:
+    case 9:
       system("cls");
       break;
       
