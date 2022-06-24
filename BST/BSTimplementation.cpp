@@ -398,7 +398,7 @@ int main()
             cin >> key;
             b.search(key);
             break;
-        case 1: cout << " Enter name to be inserted ";
+        case 1: cout << " Enter name to be inserted: ";
             cin >> name;
             cout << " Enter Type(ex: Sands, Goblet, Flower, Feather): ";
             cin >> type;
