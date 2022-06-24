@@ -65,12 +65,16 @@ class ArtifactLinkedList {
   // 2. Append a Artifact to the list
 
   void appendArtifact(Artifact * n) { //passing the address of the node/artifact
+    auto start = high_resolution_clock::now();
     if (ArtifactExists(n -> artifactname) != NULL) { //check if artifact exists alrdy with the same name value and head is pointing to an object
       cout << "Artifact Already exists with the artifact name: " << n -> artifactname << ". Append another Artifact with a different artifact name please." << endl;//accessing the artifact name of the object using pointer
     } else {
       if (head == NULL) {
         head = n; //store in head pointer
+        auto stop = high_resolution_clock::now();
         cout << "Artifact Appended as Head Artifact" << endl;
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
       } else {
         Artifact * ptr = head;
         while (ptr -> next != NULL) { //if head is pointing into artiface node n1
@@ -78,30 +82,41 @@ class ArtifactLinkedList {
         }
         ptr -> next = n;
         n -> previous = ptr;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
         cout << "Artifact Appended" << endl;
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
       }
     }
   }
 
   // 3. Prepend Artifact - Attach a Artifact at the start
   void prependArtifact(Artifact * n) {
+    auto start = high_resolution_clock::now();
     if (ArtifactExists(n -> artifactname) != NULL) {
       cout << "Artifact Already exists with the artifact name: " << n -> artifactname << ". Append another Artifact with a different artifact name please." << endl;
     } else {
       if (head == NULL) {
         head = n;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
         cout << "Artifact Prepended as Head Artifact" << endl;
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
       } else {
         head -> previous = n;
         n -> next = head;
         head = n;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
         cout << "Artifact Prepended" << endl;
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
       }
     }
   }
 
   // 4. Insert a Artifact after a particular Artifact in the list
   void insertArtifactAfter(string an, Artifact * n) {
+    auto start = high_resolution_clock::now();
     Artifact * ptr = ArtifactExists(an);
     if (ptr == NULL) {
       cout << "No Artifact exists with the artifact name " << an << endl;
@@ -114,7 +129,10 @@ class ArtifactLinkedList {
         if (nextArtifact == NULL) {
           ptr -> next = n;
           n -> previous = ptr;
+          auto stop = high_resolution_clock::now();
+          auto duration = duration_cast<microseconds>(stop - start);
           cout << "Artifact Inserted at the END" << endl;
+          cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
         }
 
         //inserting in between
@@ -123,8 +141,10 @@ class ArtifactLinkedList {
           nextArtifact -> previous = n;
           n -> previous = ptr;
           ptr -> next = n;
-
+          auto stop = high_resolution_clock::now();
+          auto duration = duration_cast<microseconds>(stop - start);
           cout << "Artifact Inserted in Between" << endl;
+          cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
 
         }
 
@@ -133,6 +153,7 @@ class ArtifactLinkedList {
   }
   // Search artifact by the artifact name
   void searchArtifactByartifactname(string an) {
+    auto start = high_resolution_clock::now();
     Artifact * ptr = ArtifactExists(an);
     if (ptr == NULL) {
       cout << "No Artifact exists with the artifact name: " << an << endl;
@@ -142,6 +163,9 @@ class ArtifactLinkedList {
         cout << "\n<><><><><><><><><><><><><><><><>";
         cout << "\nArtifact name: " << ptr -> artifactname << "\nType: " << ptr -> type << "\nCrit value: " << ptr -> cv << "\nLevel: " << ptr -> level << "\nRarity: " << ptr -> rarity << "";
         cout << "\n<><><><><><><><><><><><><><><><>" << endl;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
       }
     }
   }
@@ -149,6 +173,7 @@ class ArtifactLinkedList {
   
   // 5. Delete Artifact by unique artifactname. Basically De-Link not delete
   void deleteArtifactByartifactname(string an) {
+    auto start = high_resolution_clock::now();
     Artifact * ptr = ArtifactExists(an);
     if (ptr == NULL) {
       cout << "No Artifact exists with artifact name: " << an << endl;
@@ -156,6 +181,9 @@ class ArtifactLinkedList {
       if (head -> artifactname == an) {
         head = head -> next;
         cout << "Artifact " << an << " has been successfully deleted." << endl;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
       } else {
         Artifact * nextArtifact = ptr -> next;
         Artifact * prevArtifact = ptr -> previous;
@@ -163,12 +191,18 @@ class ArtifactLinkedList {
         if (nextArtifact == NULL) {
           prevArtifact -> next = NULL;
           cout << "Artifact Deleted at the END" << endl;
+          auto stop = high_resolution_clock::now();
+          auto duration = duration_cast<microseconds>(stop - start);
+          cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
         }
         //deleting in between
         else {
           prevArtifact -> next = nextArtifact;
           nextArtifact -> previous = prevArtifact;
           cout << "Artifact Deleted in Between" << endl;
+          auto stop = high_resolution_clock::now();
+          auto duration = duration_cast<microseconds>(stop - start);
+           cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
         }
       }
     }
