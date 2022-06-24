@@ -305,7 +305,7 @@ void BinarySearchTree::search(string key)
         {
             found = true;
             cout << "  LEVEL\t\tRARITY\t\tNAME\t\tCRITVALUE\t\tTYPE\t\tRATING" << endl;
-            cout << " "<<curr->data.getLevel() << "\t\t" << curr->data.getRarity() << "\t\t" << curr->data.getName() << "\t\t" << curr->data.getCritValue() << "\t\t" << curr->data.getType() << "\t\t" << curr->data.getRating() << endl;
+            cout << "  "<<curr->data.getLevel() << "\t\t" << curr->data.getRarity() << "\t\t" << curr->data.getName() << "\t\t" << curr->data.getCritValue() << "\t\t\t" << curr->data.getType() << "\t\t\t" << curr->data.getRating() << endl;
             break;
         }
         else
@@ -546,6 +546,7 @@ int main()
             critValue = (critDmg + (critRate * 2));
             cout << endl;
             b.changeCritValue(name, critValue);
+            b.changeLevel(name, level);
             break;
         case 5: return 0;
 
