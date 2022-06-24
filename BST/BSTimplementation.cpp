@@ -3,7 +3,9 @@
 #include <fstream>
 #include <iomanip>
 #include <stdio.h>
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 double critRate;
 double critDmg;
@@ -56,6 +58,7 @@ public:
     void remove(string);
     void search(string key);
     void changeCritValue(string key, int newCritValue);
+    void changeLevel(string key, int newLevel);
 };
 Artifact::Artifact()
 {
@@ -110,6 +113,7 @@ void Artifact::setRarity(int newRarity) {
 // larger elements go right
 void BinarySearchTree::insert(Artifact p)
 {
+    auto start = high_resolution_clock::now();
     tree_node* t = new tree_node;
     tree_node* parent = NULL;
     t->data = p;
@@ -133,11 +137,16 @@ void BinarySearchTree::insert(Artifact p)
             parent->left = t;
         else
             parent->right = t;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        cout << " Time taken by function: "
+            << duration.count() << " milliseconds" << endl;
     }
 }
 void BinarySearchTree::remove(string p)
 {
-
+    auto start = high_resolution_clock::now();
     //Locate the element
     bool found = false;
     if (isEmpty())
@@ -246,16 +255,27 @@ void BinarySearchTree::remove(string p)
                 delete tmp;
             }
         }
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        cout << " Time taken by function: "
+            << duration.count() << " milliseconds" << endl;
         return;
     }
 }
 void BinarySearchTree::print_inorder()
 {
+    auto start = high_resolution_clock::now();
     inorder(root);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout << " Time taken by function: "
+        << duration.count() << " milliseconds" << endl;
 }
 void BinarySearchTree::inorder(tree_node* p)
 {
-
+    
     if (p != NULL)
     {
         if (p->left) inorder(p->left);
@@ -263,11 +283,13 @@ void BinarySearchTree::inorder(tree_node* p)
         if (p->right) inorder(p->right);
     }
     else return;
+    
 }
 
 //////////////////new/////////////////////////
 void BinarySearchTree::search(string key)
 {
+    auto start = high_resolution_clock::now();
     bool found = false;
     if (isEmpty())
     {
@@ -282,7 +304,8 @@ void BinarySearchTree::search(string key)
         if (curr->data.getName() == key)
         {
             found = true;
-            cout << "The Crit value for " << key << " is " << curr->data.getCritValue() << endl;
+            cout << "  LEVEL\t\tRARITY\t\tNAME\t\tCRITVALUE\t\tTYPE\t\tRATING" << endl;
+            cout << " "<<curr->data.getLevel() << "\t\t" << curr->data.getRarity() << "\t\t" << curr->data.getName() << "\t\t" << curr->data.getCritValue() << "\t\t" << curr->data.getType() << "\t\t" << curr->data.getRating() << endl;
             break;
         }
         else
@@ -296,9 +319,16 @@ void BinarySearchTree::search(string key)
     {
         cout << " Data not found! " << endl;
         return;
+
     }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout << " Time taken by function: "
+        << duration.count() << " milliseconds" << endl;
 }
 void BinarySearchTree::changeCritValue(string p, int newCritValue) {
+    auto start = high_resolution_clock::now();
     bool found = false;
     if (isEmpty())
     {
@@ -330,11 +360,58 @@ void BinarySearchTree::changeCritValue(string p, int newCritValue) {
     //change the crit value associated with the node
     curr->data.setCritValue(newCritValue);
     cout << "Crit value changed successfully. " << endl;
-}//end changePhonenumber
-/////////////////////////////////////new add into book class//////////////
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout << " Time taken by function: "
+        << duration.count() << " milliseconds" << endl;
+
+}
+void BinarySearchTree::changeLevel(string p, int newLevel) {
+    auto start = high_resolution_clock::now();
+    bool found = false;
+    if (isEmpty())
+    {
+        cout << " This Tree is empty! " << endl;
+        return;
+    }
+    tree_node* curr;
+    tree_node* parent;
+    curr = root;
+    while (curr != NULL)
+    {
+        if (curr->data.getName() == p)
+        {
+            found = true;
+            break;
+        }
+        else
+        {
+            parent = curr;
+            if (p > curr->data.getName()) curr = curr->right;
+            else curr = curr->left;
+        }
+    }
+    if (!found)
+    {
+        cout << " Artifact not found. " << endl;
+        return;
+    }
+    //Change Level
+    curr->data.setLevel(newLevel);
+    cout << "Level changed successfully. " << endl;
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout << " Time taken by function: "
+        << duration.count() << " milliseconds" << endl;
+
+}
+/////////////////////////////////////new add into Artifact manager class//////////////
 //void fillTree( BinarySearchTree b)
 void fillTree(BinarySearchTree* b)//Line 368
 {
+    auto start = high_resolution_clock::now();
     ifstream file;
     file.open("ArtifactInfo.txt");
     if (!file) {
@@ -360,6 +437,11 @@ void fillTree(BinarySearchTree* b)//Line 368
         (*b).insert(p); //Line 384
     }
     file.close();
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+     
+    cout << " Time taken by function: "
+        << duration.count() << " milliseconds" << endl;
 }
 
 int main()
@@ -455,8 +537,13 @@ int main()
             break;
         case 4: cout << " Enter the name of the Artifact of which the crit value you wish to change: " << endl;
             cin >> name;
-            cout << endl << " Enter the new Crit Value: " << endl;
-            cin >> critValue;
+            cout << "Enter new artifact level: ";
+            cin >> level;
+            cout << endl << " Enter the new Crit Rate: " << endl;
+            cin >> critRate;
+            cout << endl << " Enter the new Crit Damage: ";
+            cin >> critDmg;
+            critValue = (critDmg + (critRate * 2));
             cout << endl;
             b.changeCritValue(name, critValue);
             break;
