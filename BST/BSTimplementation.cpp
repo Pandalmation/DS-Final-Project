@@ -5,8 +5,8 @@
 #include <stdio.h>
 using namespace std;
 
-int critRate;
-int critDmg;
+double critRate;
+double critDmg;
 
 //typedef string ItemType;
 class Artifact {
@@ -14,18 +14,18 @@ private:
     string name;
     string type;
     int critValue = critDmg + (critRate * 2);
-    string rating; 
-    int rarity; 
+    string rating;
+    int rarity;
     int level;
 public:
     Artifact();
-    Artifact(int level,int rarity, string name, int critValue, string type,string rating);
+    Artifact(int level, int rarity, string name, int critValue, string type, string rating);
     string getName();
     int getCritValue();
     string getType();
     string getRating();
     int getLevel();
-    int getRarity(); 
+    int getRarity();
     void setName(string newname);
     void setCritValue(int newCritValue);
     void setType(string newType);
@@ -279,7 +279,7 @@ void BinarySearchTree::search(string key)
     curr = root;
     while (curr != NULL)
     {
-        if (curr->data.getName() == key) 
+        if (curr->data.getName() == key)
         {
             found = true;
             cout << "The Crit value for " << key << " is " << curr->data.getCritValue() << endl;
@@ -355,12 +355,13 @@ void fillTree(BinarySearchTree* b)//Line 368
         p.setCritValue(critValue);
         p.setType(type);
         p.setRating(rating);
-        cout << p.getLevel()  << "  " << p.getRarity() << "  " << p.getName() << "  " << p.getCritValue() << "  " << p.getType() << "  " << p.getRating()  << endl;
+        cout << p.getLevel() << "  " << p.getRarity() << "  " << p.getName() << "  " << p.getCritValue() << "  " << p.getType() << "  " << p.getRating() << endl;
         //b.insert(p);
         (*b).insert(p); //Line 384
     }
     file.close();
 }
+
 int main()
 {
     BinarySearchTree b;
@@ -368,11 +369,11 @@ int main()
     string name;
     string key;
     string type;
-    int rarity; 
+    int rarity;
     int level;
-    int critRate = 0;
-    int critDmg = 0;
-    int critValue = critDmg + (critRate * 2); 
+    double critRate = 0;
+    double critDmg = 0;
+    int critValue = critDmg + (critRate * 2);
     string rating = "lul";
     Artifact tmp;
     Artifact tmp1;
@@ -397,7 +398,7 @@ int main()
             cin >> key;
             b.search(key);
             break;
-        case 1: cout << " Enter name to be inserted: ";
+        case 1: cout << " Enter name to be inserted ";
             cin >> name;
             cout << " Enter Type(ex: Sands, Goblet, Flower, Feather): ";
             cin >> type;
