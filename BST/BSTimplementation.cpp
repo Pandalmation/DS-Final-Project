@@ -165,7 +165,7 @@ void BinarySearchTree::remove(string p)
             break;
         }
         else
-        {
+        { 
             parent = curr;
             if (p > curr->data.getName()) curr = curr->right;
             else curr = curr->left;
@@ -185,24 +185,46 @@ void BinarySearchTree::remove(string p)
             {
                 parent->left = curr->right;
                 delete curr;
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
+
+                cout << " Time taken by function: "
+                    << duration.count() << " milliseconds" << endl;
             }
             else
             {
                 parent->right = curr->right;
                 delete curr;
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
+
+                cout << " Time taken by function: "
+                    << duration.count() << " milliseconds" << endl;
             }
         }
         else // left child present, no right child
         {
             if (parent->left == curr)
             {
+              
                 parent->left = curr->left;
                 delete curr;
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
+
+                cout << " Time taken by function: "
+                    << duration.count() << " milliseconds" << endl;
             }
             else
             {
+              
                 parent->right = curr->left;
                 delete curr;
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
+
+                cout << " Time taken by function: "
+                    << duration.count() << " milliseconds" << endl;
             }
         }
         return;
@@ -210,9 +232,15 @@ void BinarySearchTree::remove(string p)
     //We're looking at a leaf node
     if (curr->left == NULL && curr->right == NULL)
     {
+       
         if (parent->left == curr) parent->left = NULL;
         else parent->right = NULL;
         delete curr;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(stop - start);
+
+        cout << " Time taken by function: "
+            << duration.count() << " milliseconds" << endl;
         return;
     }
     //Node with 2 children
@@ -223,9 +251,15 @@ void BinarySearchTree::remove(string p)
         chkr = curr->right;
         if ((chkr->left == NULL) && (chkr->right == NULL))
         {
+           
             curr = chkr;
             delete chkr;
             curr->right = NULL;
+            auto stop = high_resolution_clock::now();
+            auto duration = duration_cast<milliseconds>(stop - start);
+
+            cout << " Time taken by function: "
+                << duration.count() << " milliseconds" << endl;
         }
         else // right child has children
         {
@@ -233,6 +267,7 @@ void BinarySearchTree::remove(string p)
             // Move all the way down left to locate smallest element
             if ((curr->right)->left != NULL)
             {
+               
                 tree_node* lcurr;
                 tree_node* lcurrp;
                 lcurrp = curr->right;
@@ -245,23 +280,31 @@ void BinarySearchTree::remove(string p)
                 curr->data = lcurr->data;
                 delete lcurr;
                 lcurrp->left = NULL;
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
+
+                cout << " Time taken by function: "
+                    << duration.count() << " milliseconds" << endl;
             }
             else
             {
+              
                 tree_node* tmp;
                 tmp = curr->right;
                 curr->data = tmp->data;
                 curr->right = tmp->right;
                 delete tmp;
-            }
-        }
-        auto stop = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(stop - start);
+                auto stop = high_resolution_clock::now();
+                auto duration = duration_cast<milliseconds>(stop - start);
 
-        cout << " Time taken by function: "
-            << duration.count() << " milliseconds" << endl;
+                cout << " Time taken by function: "
+                    << duration.count() << " milliseconds" << endl;
+            }
+         
+        }
         return;
     }
+   
 }
 void BinarySearchTree::print_inorder()
 {
@@ -357,6 +400,7 @@ void BinarySearchTree::changeCritValue(string p, int newCritValue) {
         cout << " Artifact not found. " << endl;
         return;
     }
+
     //change the crit value associated with the node
     curr->data.setCritValue(newCritValue);
     cout << "Crit value changed successfully. " << endl;
@@ -533,7 +577,7 @@ int main()
             break;
         case 3: cout << " Enter data to be deleted : ";
             cin >> key;
-            b.remove(key);
+            b.remove(key);;
             break;
         case 4: cout << " Enter the name of the Artifact of which the crit value you wish to change: " << endl;
             cin >> name;
