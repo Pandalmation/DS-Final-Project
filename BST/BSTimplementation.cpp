@@ -476,7 +476,7 @@ int main()
         cin >> ch;
         switch (ch)
         {
-        case 0: cout << " Enter the name of the Artifact to search for: " << endl;
+        case 0: cout << " Enter the name of the Artifact to search for: ";
             cin >> key;
             b.search(key);
             break;
@@ -539,7 +539,7 @@ int main()
             cin >> name;
             cout << "Enter new artifact level: ";
             cin >> level;
-            cout << endl << " Enter the new Crit Rate: " << endl;
+            cout << endl << " Enter the new Crit Rate: ";
             cin >> critRate;
             cout << endl << " Enter the new Crit Damage: ";
             cin >> critDmg;
