@@ -12,6 +12,7 @@
 - Searching Operation. We have a searching by name feature, incase you need to look for a specific artifact.
 - Insertion operation. Our program allows you to add in your artifacts and sort it in any order you'd like.
 - Deletion Operation. Our program will allow you to remove the artifacts you wouldn't like to keep after having our program rate it.
+- Updating Operation. Our program allows you to update your artifacts' information such as changing it's crit rate, crit damage and the artifact's level.
 - Printing Artifacts Information. Our program will print all the artifacts and it's data stored.
 # video demo link:
 - https://youtu.be/zjQqwf4NGEc
