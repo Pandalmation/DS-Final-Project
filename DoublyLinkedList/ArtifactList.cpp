@@ -1,8 +1,9 @@
 #include<iostream>
 #include<chrono>
 using namespace std;
-//create artifact class that stores name, type, rarity, critrate, critdamage and crit value
 using namespace std::chrono;
+
+//create artifact class that stores name, type, rarity, critrate, critdamage and crit value
 
 class Artifact {
   public:
